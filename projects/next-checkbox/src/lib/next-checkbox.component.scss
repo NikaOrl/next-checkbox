@@ -28,11 +28,11 @@ $next-header-height: 36px;
   &__icon {
     background-color: $white;
     border: 1px solid $placeholder-gray;
-    height: 25px;
+    height: 1em;
     left: 0;
     position: absolute;
     top: 0;
-    width: 25px;
+    width: 1em;
   }
 
   input:checked ~ &__icon {
@@ -54,11 +54,12 @@ $next-header-height: 36px;
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     border: solid #ffffff;
-    border-width: 0 3px 3px 0;
-    height: 10px;
-    left: 9px;
-    top: 5px;
+    border-width: 0 0.12em 0.12em 0;
+    height: 0.4em;
+    left: 0.35em;
+    top: 0.15em;
     transform: rotate(45deg);
-    width: 5px;
+    width: 0.2em;
+    border-radius: 3px;
   }
 }
