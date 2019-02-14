@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'next-checkbox-app';
+  disabled = false;
+  required = false;
+  tabIndex = 1;
 }

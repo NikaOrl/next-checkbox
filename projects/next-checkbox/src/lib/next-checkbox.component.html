@@ -1,0 +1,14 @@
+<label class="next-checkbox">
+  <input type="checkbox"
+         class="next-checkbox__input"
+         [checked]="checked"
+         [disabled]="disabled"
+         [id]="inputId"
+         [required]="required"
+         [tabIndex]="tabIndex"
+         (change)="onChange($event)">
+  <i class="next-checkbox__icon"></i>
+  <span class="next-checkbox__label">
+    <ng-content></ng-content>
+  </span>
+</label>
