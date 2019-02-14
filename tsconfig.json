@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "next-checkbox": [
+        "dist/next-checkbox"
+      ],
+      "next-checkbox/*": [
+        "dist/next-checkbox/*"
+      ]
+    }
   }
 }

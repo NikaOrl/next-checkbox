@@ -133,6 +133,41 @@
           }
         }
       }
+    },
+    "next-checkbox": {
+      "root": "projects/next-checkbox",
+      "sourceRoot": "projects/next-checkbox/src",
+      "projectType": "library",
+      "prefix": "next",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/next-checkbox/tsconfig.lib.json",
+            "project": "projects/next-checkbox/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/next-checkbox/src/test.ts",
+            "tsConfig": "projects/next-checkbox/tsconfig.spec.json",
+            "karmaConfig": "projects/next-checkbox/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/next-checkbox/tsconfig.lib.json",
+              "projects/next-checkbox/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "next-checkbox-app"
