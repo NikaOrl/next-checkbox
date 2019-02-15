@@ -7,20 +7,18 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 // import {BaseCheckbox, getCheckboxValueAccessor, idGenerator} from '../base-checkbox';
-
-export function getCheckboxValueAccessor(componentClass): any {
-  return {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => componentClass),
-    multi: true
-  };
-}
 @Component({
   selector: 'next-checkbox',
   styleUrls: ['./next-checkbox.component.scss'],
   templateUrl: './next-checkbox.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [getCheckboxValueAccessor(NextCheckboxComponent)]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NextCheckboxComponent),
+      multi: true
+    }
+  ] // ControlValueAccessor registration
 })
 export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
@@ -28,6 +26,7 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() tabIndex: number;
   private _changeDetectorRef: ChangeDetectorRef;
   protected controlValueAccessorChangeFn: (value: any) => void;
+  /* CheckboxControlValueAccessor part */
   protected onTouched: (value: any) => void;
 
   private _checked = false;
@@ -57,6 +56,19 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   inputId: string;
   // tabIndex = 0;
 
+  idGenerator(prefix: string, postfix: string): () => string {
+    let counter = 0;
+    return () => `${prefix}-${++counter}-${postfix}`;
+  }
+
+  /* CheckboxControlValueAccessor part */
+
+  onChange(event: Event): void {
+    // this.checked = !this.checked;
+    console.log(this.checked);
+    this.controlValueAccessorChangeFn(this.checked);
+  }
+
   writeValue(value: any): void {
     this.checked = value;
   }
@@ -74,15 +86,7 @@ export class NextCheckboxComponent implements ControlValueAccessor {
     this._changeDetectorRef.markForCheck();
   }
 
-  onChange(event: Event): void {
-    this.checked = !this.checked;
-    this.controlValueAccessorChangeFn(this.checked);
-  }
-
-  idGenerator(prefix: string, postfix: string): () => string {
-    let counter = 0;
-    return () => `${prefix}-${++counter}-${postfix}`;
-  }
+  /* the end of CheckboxControlValueAccessor part */
 
   constructor(changeDetectorRef: ChangeDetectorRef) {
     this.inputId = this.inputIdGenerator();
