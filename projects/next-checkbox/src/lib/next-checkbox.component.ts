@@ -6,32 +6,31 @@ import {
   forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-// import {BaseCheckbox, getCheckboxValueAccessor, idGenerator} from '../base-checkbox';
 
-export function getCheckboxValueAccessor(componentClass): any {
-  return {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => componentClass),
-    multi: true
-  };
-}
 @Component({
   selector: 'next-checkbox',
   styleUrls: ['./next-checkbox.component.scss'],
   templateUrl: './next-checkbox.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [getCheckboxValueAccessor(NextCheckboxComponent)]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NextCheckboxComponent),
+      multi: true
+    }
+  ]
 })
 export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() tabIndex: number;
-  private _changeDetectorRef: ChangeDetectorRef;
-  protected controlValueAccessorChangeFn: (value: any) => void;
-  protected onTouched: (value: any) => void;
+
+  inputId: string;
+
+  private inputIdGenerator = this.idGenerator('next-checkbox', 'input');
 
   private _checked = false;
-  private inputIdGenerator = this.idGenerator('next-checkbox', 'input');
+
   get checked(): any {
     return this._checked;
   }
@@ -43,19 +42,19 @@ export class NextCheckboxComponent implements ControlValueAccessor {
     }
   }
 
-  // private _required: boolean;
+  private _changeDetectorRef: ChangeDetectorRef;
+  protected controlValueAccessorChangeFn: (value: any) => void;
+  protected onTouched: (value: any) => void;
 
-  /* get required(): boolean {
-    return this._required;
+  constructor(changeDetectorRef: ChangeDetectorRef) {
+    this.inputId = this.inputIdGenerator();
+    this._changeDetectorRef = changeDetectorRef;
   }
 
-  set required(value) {
-    this._required = coerceBooleanProperty(value);
-  } */
-
-  // disabled = false;
-  inputId: string;
-  // tabIndex = 0;
+  onChange(event: Event): void {
+    this.checked = !this.checked;
+    this.controlValueAccessorChangeFn(this.checked);
+  }
 
   writeValue(value: any): void {
     this.checked = value;
@@ -69,23 +68,13 @@ export class NextCheckboxComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this._changeDetectorRef.markForCheck();
-  }
-
-  onChange(event: Event): void {
-    this.checked = !this.checked;
-    this.controlValueAccessorChangeFn(this.checked);
-  }
-
   idGenerator(prefix: string, postfix: string): () => string {
     let counter = 0;
     return () => `${prefix}-${++counter}-${postfix}`;
   }
 
-  constructor(changeDetectorRef: ChangeDetectorRef) {
-    this.inputId = this.inputIdGenerator();
-    this._changeDetectorRef = changeDetectorRef;
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this._changeDetectorRef.markForCheck();
   }
 }
