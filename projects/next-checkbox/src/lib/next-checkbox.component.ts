@@ -6,7 +6,7 @@ import {
   forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-// import {BaseCheckbox, getCheckboxValueAccessor, idGenerator} from '../base-checkbox';
+
 @Component({
   selector: 'next-checkbox',
   styleUrls: ['./next-checkbox.component.scss'],
@@ -18,7 +18,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       useExisting: forwardRef(() => NextCheckboxComponent),
       multi: true
     }
-  ] // ControlValueAccessor registration
+  ]
 })
 export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
