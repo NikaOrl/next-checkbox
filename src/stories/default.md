@@ -1,7 +1,7 @@
 ## Project setup
 
 ```
-npm i next-header
+npm i next-checkbox
 ```
 
 ## Basic usage example
@@ -9,12 +9,12 @@ npm i next-header
 ### Add module into your app
 
 ```
-import { NextHeaderModule } from 'next-header';
+import { NextCheckboxModule } from 'next-checkbox';
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [AppComponent],
-  imports: [..., NextHeaderModule],
+  imports: [..., NextCheckboxModule],
   providers: []
 })
 export class AppModule {
@@ -25,60 +25,46 @@ export class AppModule {
 ### Add markup to the template file
 
 ```
-<next-header
-  [env]="env"
-  [projectName]="projectName"
-  [description]="description"
-  (projectNameClickEmitter)="onProjectNameClick()"
+<next-checkbox
+  [disabled]="disabled"
+  [required]="required"
+  [tabIndex]="tabIndex"
 >
-  <div help-slot>
-    help-slot content
-  </div>
-  <div user-name-slot>
-    user-name-slot content
-  </div>
-  <div logout-slot>
-    logout-slot content
-  </div>
-</next-header>
+  <span>Some label here</span>
+</next-checkbox>
 ```
 
-## The header has:
+## The checkbox has:
 
 ### 3 inputs:
 
-- env: string;
-- projectName: string
-- description: string
+- disabled: boolean;
+- required: boolean;
+- tabIndex: number.
 
-### 1 output:
+### 1 transclusion:
 
-- projectNameClickEmitter
-
-### 3 transclusions:
-
-- help-slot
-- user-name-slot
-- logout-slot
+- Any label you want to be near the checkbox
 
 ### The template for this example looks like the code below
 
 ```
-<next-header
-  [env]="'Predev'"
-  [projectName]="'NEXT - Admin'"
-  [description]="'External Science'"
-  (projectNameClickEmitter)="onProjectNameClick()"
->
-  <div help-slot>
-    some buttons here
+<style>
+  .container {
+    font-size: 30px;
+    font-family: sans-serif;
+    padding: 50px;
+  }
+  </style>
+  <div class="container">
+    <b>Title</b>
+    <next-checkbox
+      [disabled]="false"
+      [required]="false"
+      [tabIndex]="1"
+    >
+      <span>Some label here</span>
+    </next-checkbox>
   </div>
-  <div user-name-slot>
-    user name and href="/" here
-  </div>
-  <div logout-slot>
-    some buttons here
-  </div>
-</next-header>
 
 ```
