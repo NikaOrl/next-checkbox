@@ -24,13 +24,13 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() tabIndex: number;
-  private _changeDetectorRef: ChangeDetectorRef;
-  protected controlValueAccessorChangeFn: (value: any) => void;
-  /* CheckboxControlValueAccessor part */
-  protected onTouched: (value: any) => void;
+
+  inputId: string;
+
+  private inputIdGenerator = this.idGenerator('next-checkbox', 'input');
 
   private _checked = false;
-  private inputIdGenerator = this.idGenerator('next-checkbox', 'input');
+
   get checked(): any {
     return this._checked;
   }
@@ -42,30 +42,17 @@ export class NextCheckboxComponent implements ControlValueAccessor {
     }
   }
 
-  // private _required: boolean;
+  private _changeDetectorRef: ChangeDetectorRef;
+  protected controlValueAccessorChangeFn: (value: any) => void;
+  protected onTouched: (value: any) => void;
 
-  /* get required(): boolean {
-    return this._required;
+  constructor(changeDetectorRef: ChangeDetectorRef) {
+    this.inputId = this.inputIdGenerator();
+    this._changeDetectorRef = changeDetectorRef;
   }
-
-  set required(value) {
-    this._required = coerceBooleanProperty(value);
-  } */
-
-  // disabled = false;
-  inputId: string;
-  // tabIndex = 0;
-
-  idGenerator(prefix: string, postfix: string): () => string {
-    let counter = 0;
-    return () => `${prefix}-${++counter}-${postfix}`;
-  }
-
-  /* CheckboxControlValueAccessor part */
 
   onChange(event: Event): void {
-    // this.checked = !this.checked;
-    console.log(this.checked);
+    this.checked = !this.checked;
     this.controlValueAccessorChangeFn(this.checked);
   }
 
@@ -81,15 +68,13 @@ export class NextCheckboxComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
+  idGenerator(prefix: string, postfix: string): () => string {
+    let counter = 0;
+    return () => `${prefix}-${++counter}-${postfix}`;
+  }
+
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this._changeDetectorRef.markForCheck();
-  }
-
-  /* the end of CheckboxControlValueAccessor part */
-
-  constructor(changeDetectorRef: ChangeDetectorRef) {
-    this.inputId = this.inputIdGenerator();
-    this._changeDetectorRef = changeDetectorRef;
   }
 }
