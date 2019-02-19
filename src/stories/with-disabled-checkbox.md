@@ -15,19 +15,24 @@ You can disable the checkbox
 
 <div class="container">
   <b>Species</b>
-  <next-checkbox
-    [disabled]="false"
-    [required]="false"
-    [tabIndex]="1"
-  >
+  <p>
+    <next-checkbox
+      [disabled]="false"
+      [required]="false"
+      [tabIndex]="1"
+      [id]="'checkbox-1'"
+    >
+    </next-checkbox>
     <span>This one is not disabled</span>
-  </next-checkbox>
-  <next-checkbox
-    [disabled]="true"
-    [required]="true"
-    [tabIndex]="2"
-  >
+  </p>
+  <p>
+    <next-checkbox
+      [disabled]="true"
+      [required]="true"
+      [tabIndex]="2"
+    >
+    </next-checkbox>
     <span>This one is disabled</span>
-  </next-checkbox>
+  </p>
 </div>
 ```

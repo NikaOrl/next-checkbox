@@ -17,20 +17,26 @@ You can set different tabIndexes to the checkboxes
 
 <div class="container">
   <b>Species</b>
-  <next-checkbox
-    [disabled]="false"
-    [required]="false"
-    [tabIndex]="1"
-  >
+  <p>
+    <next-checkbox
+      [disabled]="false"
+      [required]="false"
+      [tabIndex]="1"
+      [id]="'checkbox-1'"
+    >
+    </next-checkbox>
     <span>The first one</span>
-  </next-checkbox>
-  <next-checkbox
-    [disabled]="false"
-    [required]="false"
-    [tabIndex]="4"
-  >
+  </p>
+  <p>
+    <next-checkbox
+      [disabled]="false"
+      [required]="false"
+      [tabIndex]="4"
+      [id]="'checkbox-2'"
+    >
+    </next-checkbox>
     <span>The fourth one</span>
-  </next-checkbox>
+  </p>
   ...
 </div>
 ```
