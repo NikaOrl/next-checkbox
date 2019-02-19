@@ -2,6 +2,10 @@
 
 You can make the checkbox required
 
+![alt text](https://pp.userapi.com/c845421/v845421569/1afa27/Luqby1D9duU.jpg)
+
+*You can use browser validation (it doesn't work in the Storybook)*
+
 ### The template for this example looks like the code below
 
 ```
