@@ -26,12 +26,10 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() tabIndex: number;
-  @Input() id: string;
-
-  private generatedId: string = this.idGenerator();
+  @Input() id = this.idGenerator();
 
   get inputId(): string {
-    return this.id || this.generatedId;
+    return this.id;
   }
 
   private _checked = false;
