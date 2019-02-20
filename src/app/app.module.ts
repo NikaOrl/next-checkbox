@@ -6,9 +6,17 @@ import { AppComponent } from './app.component';
 
 import { NextCheckboxModule } from 'next-checkbox';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, NextCheckboxModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NextCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

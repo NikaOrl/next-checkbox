@@ -1,11 +1,10 @@
 <div class="container">
   <next-checkbox
     [disabled]="disabled"
-    [required]="true"
+    [required]="required"
     [tabIndex]="tabIndex"
     [id]="id"
-  >
-    <span>Dog (426)</span>
-  </next-checkbox>
+    [formControl]="formControl"
+  ></next-checkbox>
   <input type="submit" />
 </div>
