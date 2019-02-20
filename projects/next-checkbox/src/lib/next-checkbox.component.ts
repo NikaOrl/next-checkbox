@@ -28,7 +28,11 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() tabIndex: number;
   @Input() id: string;
 
-  get inputId(): string { return this.id || this.idGenerator(); }
+  private generatedId: string = this.idGenerator();
+
+  get inputId(): string {
+    return this.id || this.generatedId;
+  }
 
   private _checked = false;
 
@@ -51,7 +55,9 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   }
 
   protected controlValueAccessorChangeFn: (value: any) => void = () => null;
-  protected idGenerator(): string { return `next-checkbox-${++nextUniqueId}-input`; }
+  protected idGenerator(): string {
+    return `next-checkbox-${++nextUniqueId}-input`;
+  }
 
   onChange(): void {
     this.checked = !this.checked;
