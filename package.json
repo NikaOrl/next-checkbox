@@ -13,7 +13,7 @@
     "deploy-storybook": "storybook-to-ghpages",
     "build_lib": "ng build next-checkbox",
     "npm_pack": "cd dist/next-checkbox && npm pack && cd ../..",
-    "package": "npm run build_lib && npm run npm_pack && npm i file:dist/next-checkbox/next-checkbox-0.0.1.tgz ",
+    "package": "npm run build_lib && npm run npm_pack && npm i file:dist/next-checkbox/next-checkbox-0.0.1.tgz --no-save",
     "postinstall": "npm run package"
   },
   "private": true,
@@ -27,7 +27,6 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
-    "next-checkbox": "file:dist/next-checkbox/next-checkbox-0.0.1.tgz",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

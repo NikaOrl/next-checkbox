@@ -27,9 +27,10 @@ You can set different sizes to the checkbox in different places
       [disabled]="false"
       [required]="false"
       [tabIndex]="1"
+      [id]="'checkbox-1'"
     >
-      <span>14px</span>
     </next-checkbox>
+    <span>14px</span>
   </div>
   ...
 </div>

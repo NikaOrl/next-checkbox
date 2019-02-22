@@ -7,10 +7,7 @@
     [id]="inputId"
     [required]="required"
     [tabIndex]="tabIndex"
-    (change)="onChange($event)"
+    (change)="onChange()"
   />
   <i class="next-checkbox__icon"></i>
-  <span class="next-checkbox__label">
-    <ng-content></ng-content>
-  </span>
 </label>

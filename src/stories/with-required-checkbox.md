@@ -25,21 +25,26 @@ You can make the checkbox required
 <div class="container">
   <div class="title">title</div>
   <form>
-    <next-checkbox
-      [disabled]="disabled"
-      [required]="true"
-      [tabIndex]="tabIndex"
-    >
+    <div>
+      <next-checkbox
+        [disabled]="disabled"
+        [required]="true"
+        [tabIndex]="tabIndex"
+        [id]="'checkbox-1'"
+      >
+      </next-checkbox>
       <span>Dog (426)</span>
-    </next-checkbox>
+    </div>
     <p class="error">This checkbox is required</p>
-    <next-checkbox
-      [disabled]="disabled"
-      [required]="false"
-      [tabIndex]="tabIndex"
-    >
+    <div>
+      <next-checkbox
+        [disabled]="disabled"
+        [required]="false"
+        [tabIndex]="tabIndex"
+      >
+      </next-checkbox>
       <span>Cynomolgus (24)</span>
-    </next-checkbox>
+    </div>
     <input type="submit" class="btn">
     <p class="success">This form is valid</p>
   </form>

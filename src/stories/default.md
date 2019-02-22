@@ -29,22 +29,21 @@ export class AppModule {
   [disabled]="disabled"
   [required]="required"
   [tabIndex]="tabIndex"
+  [id]="id"
 >
-  <span>Some label here</span>
 </next-checkbox>
 ```
 
 ## The checkbox has:
 
-### 3 inputs:
+### 4 inputs:
 
 - disabled: boolean;
 - required: boolean;
-- tabIndex: number.
+- tabIndex: number;
+- id: string.
 
-### 1 transclusion:
-
-- Any label you want to be near the checkbox
+(In case of missing the id, it will be automatically generated)
 
 ### The template for this example looks like the code below
 
@@ -58,13 +57,16 @@ export class AppModule {
   </style>
   <div class="container">
     <b>Title</b>
-    <next-checkbox
-      [disabled]="false"
-      [required]="false"
-      [tabIndex]="1"
-    >
+    <p>
+      <next-checkbox
+        [disabled]="false"
+        [required]="false"
+        [tabIndex]="1"
+        [id]="'checkbox-1'"
+      >
+      </next-checkbox>
       <span>Some label here</span>
-    </next-checkbox>
+    </p>
   </div>
 
 ```
