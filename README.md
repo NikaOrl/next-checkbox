@@ -20,4 +20,4 @@ Run `npm run build-storybook`
 
 ## Storybook/Demo
 
-available here https://github.com/NikaOrl/next-checkbox
+available here https://nikaorl.github.io/next-checkbox

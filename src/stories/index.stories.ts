@@ -79,13 +79,16 @@ storiesOf('next-checkbox', module)
         <div class="title">
           <b>Species</b>
         </div>
-        <next-checkbox
-          [disabled]="false"
-          [required]="false"
-          [tabIndex]="1"
-        >
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="false"
+            [tabIndex]="1"
+            [id]="'checkbox-1'"
+          >
+          </next-checkbox>
           <span>Cynomolgus (24)</span>
-        </next-checkbox>
+        </p>
       </div>
     `
     }))
@@ -108,8 +111,8 @@ storiesOf('next-checkbox', module)
             [required]="false"
             [tabIndex]="1"
           >
-            <span>14px</span>
           </next-checkbox>
+          <span>14px</span>
         </div>
         <div class="label label-28">
           <next-checkbox
@@ -117,8 +120,8 @@ storiesOf('next-checkbox', module)
             [required]="true"
             [tabIndex]="2"
           >
-            <span>28px</span>
           </next-checkbox>
+          <span>28px</span>
         </div>
         <div class="label label-42">
           <next-checkbox
@@ -126,8 +129,8 @@ storiesOf('next-checkbox', module)
             [required]="true"
             [tabIndex]="2"
           >
-            <span>42px</span>
           </next-checkbox>
+          <span>42px</span>
         </div>
       </div>
     `
@@ -145,20 +148,24 @@ storiesOf('next-checkbox', module)
         <div class="title">
           <b>Species</b>
         </div>
-        <next-checkbox
-          [disabled]="false"
-          [required]="false"
-          [tabIndex]="1"
-        >
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="false"
+            [tabIndex]="1"
+          >
+          </next-checkbox>
           <span>This one is not disabled</span>
-        </next-checkbox>
-        <next-checkbox
-          [disabled]="true"
-          [required]="true"
-          [tabIndex]="2"
-        >
+        </p>
+        <p>
+          <next-checkbox
+            [disabled]="true"
+            [required]="true"
+            [tabIndex]="2"
+          >
+          </next-checkbox>
           <span>This one is disabled</span>
-        </next-checkbox>
+        </p>
       </div>
     `
     }))
@@ -175,41 +182,51 @@ storiesOf('next-checkbox', module)
         <div class="title">
           <b>Species</b>
         </div>
-        <next-checkbox
-          [disabled]="false"
-          [required]="false"
-          [tabIndex]="1"
-        >
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="false"
+            [tabIndex]="1"
+          >
+          </next-checkbox>
           <span>The first one</span>
-        </next-checkbox>
-        <next-checkbox
-          [disabled]="false"
-          [required]="false"
-          [tabIndex]="4"
-        >
+        </p>
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="false"
+            [tabIndex]="4"
+          >
+          </next-checkbox>
           <span>The fourth one</span>
-        </next-checkbox>
-        <next-checkbox
-          [disabled]="false"
-          [required]="true"
-          [tabIndex]="2"
-        >
+        </p>
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="true"
+            [tabIndex]="2"
+          >
+          </next-checkbox>
           <span>The second one</span>
-        </next-checkbox>
-        <next-checkbox
-          [disabled]="false"
-          [required]="true"
-          [tabIndex]="3"
-        >
+        </p>
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="true"
+            [tabIndex]="3"
+          >
+          </next-checkbox>
           <span>The third one</span>
-        </next-checkbox>
-        <next-checkbox
-          [disabled]="false"
-          [required]="true"
-          [tabIndex]="5"
-        >
+        </p>
+        <p>
+          <next-checkbox
+            [disabled]="false"
+            [required]="true"
+            [tabIndex]="5"
+          >
+          </next-checkbox>
           <span>The fifth one</span>
-        </next-checkbox>
+        </p>
       </div>
     `
     }))
@@ -227,21 +244,25 @@ storiesOf('next-checkbox', module)
           <b>Species</b>
         </div>
         <form>
-          <next-checkbox
-            [disabled]="disabled"
-            [required]="true"
-            [tabIndex]="tabIndex"
-          >
+          <div>
+            <next-checkbox
+              [disabled]="disabled"
+              [required]="true"
+              [tabIndex]="tabIndex"
+            >
+            </next-checkbox>
             <span>Dog (426)</span>
-          </next-checkbox>
+          </div>
           <p class="error">This checkbox is required</p>
-          <next-checkbox
-            [disabled]="disabled"
-            [required]="false"
-            [tabIndex]="tabIndex"
-          >
+          <div>
+            <next-checkbox
+              [disabled]="disabled"
+              [required]="false"
+              [tabIndex]="tabIndex"
+            >
+            </next-checkbox>
             <span>Cynomolgus (24)</span>
-          </next-checkbox>
+          </div>
           <input type="submit" class="btn">
           <p class="success">This form is valid</p>
         </form>
