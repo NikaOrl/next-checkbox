@@ -1,10 +1,27 @@
-<div class="container">
-  <next-checkbox
-    [disabled]="disabled"
-    [required]="required"
-    [tabIndex]="tabIndex"
-    [id]="id"
-    [formControl]="formControl"
-  ></next-checkbox>
+<form [formGroup]="appFormGroup">
+  <div class="container">
+    <next-checkbox
+      [disabled]="disabled"
+      [required]="required"
+      [tabIndex]="tabIndex"
+      [id]="'checkbox-1'"
+      formControlName="checkboxFormControl"
+    ></next-checkbox>
+    <label for="checkbox-1">Some text</label>
+  </div>
   <input type="submit" />
-</div>
+</form>
+<form>
+  <div class="container">
+    <next-checkbox
+      [disabled]="disabled"
+      [required]="required"
+      [tabIndex]="tabIndex"
+      [id]="'checkbox-2'"
+      [(ngModel)]="isChecked"
+      name="checkbox"
+    ></next-checkbox>
+    <label for="checkbox-1">Some text</label>
+  </div>
+  <input type="submit" />
+</form>

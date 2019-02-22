@@ -11,6 +11,8 @@ export class AppComponent {
   disabled = false;
   required = false;
   tabIndex = 1;
-  formControl = new FormControl({ checked: true });
   isChecked = true;
+  appFormGroup = new FormGroup({
+    checkboxFormControl: new FormControl({ checked: true })
+  });
 }
