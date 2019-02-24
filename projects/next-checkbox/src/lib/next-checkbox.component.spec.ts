@@ -13,7 +13,7 @@ import {
 
 @Component({
   template: `
-    <form class="ng-model-form" (ngSubmit)="onSubmit()">
+    <form class="ng-model-form">
       <div class="container">
         <next-checkbox
           [disabled]="disabled"
@@ -25,7 +25,6 @@ import {
         ></next-checkbox>
         <label for="checkbox-1">Some text</label>
       </div>
-      <input type="submit" class="submit-input" />
     </form>
   `
 })
@@ -33,10 +32,8 @@ class CheckboxWithNgModelComponent {
   disabled: boolean;
   required: boolean;
   tabIndex: number;
-  id: string;
+  id: string | null;
   isChecked = true;
-
-  onSubmit() {}
 }
 
 @Component({
@@ -52,7 +49,6 @@ class CheckboxWithNgModelComponent {
         ></next-checkbox>
         <label for="checkbox-1">Some text</label>
       </div>
-      <input type="submit" class="submit-input" />
     </form>
   `
 })
@@ -62,10 +58,8 @@ class CheckboxWithReactiveFormsComponent {
   tabIndex: number;
   id: string;
   appFormGroup = new FormGroup({
-    checkboxFormControl: new FormControl({ checked: true }, Validators.required)
+    checkboxFormControl: new FormControl(true)
   });
-
-  formValid = false;
 }
 
 describe('NextCheckboxComponent', () => {
@@ -87,12 +81,29 @@ describe('NextCheckboxComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should use default controlValueAccessorChangeFn function be clicked when it\'s clicked', async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+      expect(input.nativeElement.checked).toBeFalsy(); // default state
+
+      input.nativeElement.click();
+      fixture.detectChanges();
+      expect(input.nativeElement.checked).toBeTruthy(); // state after click
+
+      input.nativeElement.click();
+      fixture.detectChanges();
+      expect(input.nativeElement.checked).toBeFalsy(); // state after double click
+    });
+  }));
 });
 
 describe('NextCheckboxComponent with ngModel', () => {
   let ngModel: NgModel;
   let checkboxDebugElement: DebugElement;
   let component: CheckboxWithNgModelComponent;
+  let checkboxInstance: NextCheckboxComponent;
   let fixture: ComponentFixture<CheckboxWithNgModelComponent>;
 
   beforeEach(async(() => {
@@ -109,6 +120,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     checkboxDebugElement = fixture.debugElement.query(
       By.directive(NextCheckboxComponent)
     );
+    checkboxInstance = checkboxDebugElement.componentInstance;
     ngModel = checkboxDebugElement.injector.get<NgModel>(NgModel);
   });
 
@@ -120,8 +132,6 @@ describe('NextCheckboxComponent with ngModel', () => {
 
   it('should be disabled when disabled=false', async(() => {
     component.disabled = false;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -131,8 +141,6 @@ describe('NextCheckboxComponent with ngModel', () => {
 
   it('should be enabled when disabled=true', async(() => {
     component.disabled = true;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -142,26 +150,15 @@ describe('NextCheckboxComponent with ngModel', () => {
 
   it('should be required when required=true', async(() => {
     component.required = true;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
       expect(input.nativeElement.required).toBeTruthy();
-      /* validity of the form (always true and I don't know why)
-      input.nativeElement.click();
-      const submit = fixture.debugElement.query(By.css('.submit-input'));
-      submit.nativeElement.click();
-
-      expect(ngModel.valid).toBeTruthy();
-   */
     });
   }));
 
   it('should not be required when required=false', async(() => {
     component.required = false;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -169,45 +166,69 @@ describe('NextCheckboxComponent with ngModel', () => {
     });
   }));
 
-  // 1. tabIndex equels tabIndex that was set
-  // 2. id in case of setting
-  // 3. id in case of generating
-  // NgModel form -> controlValueAccessorChangeFn and the component work => etoe tests
-  // ReactiveForms -> controlValueAccessorChangeFn and the component work => etoe tests
-  // 4. clicked when clicked
-  // 5. not clicked when double clicked
-  /*it('should click change value', () => {
-    expect(input.checked).toBeFalsy(); // default state
+  it('should have a tabIndex that was set', async(() => {
+    component.tabIndex = 2;
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+      expect(input.nativeElement.tabIndex).toBe(2);
+    });
+  }));
 
-    input.click();
-    fixture.detectChanges();
+  it('should preserve the user-provided id', async(() => {
+    component.id = 'test-checkbox';
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
 
-    expect(input.checked).toBeTruthy(); // state after click
-});*/
-  /*it('should be checked when clicked', fakeAsync(() => {
-    let fixture = TestBed.createComponent(TestComponent);
-    let component = fixture.componentInstance;
-    fixture.detectChanges(); // initialize controls
-    tick(); // wait registration controls
+      const inputByClass = fixture.debugElement.query(
+        By.css('.next-checkbox__input')
+      );
+      const inputById = fixture.debugElement.query(By.css('#test-checkbox'));
+      expect(inputByClass.nativeElement.id).toBe('test-checkbox');
+      expect(inputByClass.nativeElement).toBe(inputById.nativeElement);
+    });
+  }));
 
-    let inputEl = fixture.debugElement.query(By.css("input")).nativeElement;
-    inputEl.click();
-    fixture.detectChanges();
-    expect(component.isChecked).toBe(true);
-  }));*/
-  /*it('check if checkbox checked attribute changed from default false to true', async() => {
-  const input = fixture.debugElement.query(By.css('.className')).nativeElement;
-  expect(component.testing).toBe(false);
-  component.testing = true;
-  fixture.detectChanges();
-  expect(input.checked).toBe(true);
-});*/
+  it('should generate a unique id for the checkbox input if no id is set (id is underfined)', () => {
+    const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+    expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
+    expect(input.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
+  });
+
+  it('should generate a unique id for the checkbox input if no id is set (id is null)', async(() => {
+    component.id = null;
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const inputByClass = fixture.debugElement.query(
+        By.css('.next-checkbox__input')
+      );
+      expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
+      expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
+    });
+  }));
+
+  it('should be clicked when it\'s clicked', async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+      expect(input.nativeElement.checked).toBeTruthy(); // default state
+
+      input.nativeElement.click();
+      fixture.detectChanges();
+      expect(input.nativeElement.checked).toBeFalsy(); // state after click
+
+      input.nativeElement.click();
+      fixture.detectChanges();
+      expect(input.nativeElement.checked).toBeTruthy(); // state after double click
+    });
+  }));
 });
 
 describe('NextCheckboxComponent with ngModel', () => {
   let checkboxDebugElement: DebugElement;
   let component: CheckboxWithReactiveFormsComponent;
   let fixture: ComponentFixture<CheckboxWithReactiveFormsComponent>;
+  let checkboxInstance: NextCheckboxComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -223,12 +244,11 @@ describe('NextCheckboxComponent with ngModel', () => {
     checkboxDebugElement = fixture.debugElement.query(
       By.directive(NextCheckboxComponent)
     );
+    checkboxInstance = checkboxDebugElement.componentInstance;
   });
 
   it('should be disabled when disabled=false', async(() => {
     component.disabled = false;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -238,8 +258,6 @@ describe('NextCheckboxComponent with ngModel', () => {
 
   it('should be enabled when disabled=true', async(() => {
     component.disabled = true;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -249,32 +267,76 @@ describe('NextCheckboxComponent with ngModel', () => {
 
   it('should be required when required=true', async(() => {
     component.required = true;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
       expect(input.nativeElement.required).toBeTruthy();
-      /* validity of the form (always true and I don't know why)
-      input.nativeElement.click();
-      const submit = fixture.debugElement.query(By.css('.submit-input'));
-      submit.nativeElement.click();
-      const formGroup = component.appFormGroup;
-      expect(formGroup.valid).toBeTruthy();
-      const checkbox = component.appFormGroup.controls['checkboxFormControl'];
-      expect(checkbox.valid).toBeTruthy();
-   */
     });
   }));
 
   it('should not be required when required=false', async(() => {
     component.required = false;
-
-    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
       expect(input.nativeElement.required).toBeFalsy();
+    });
+  }));
+
+  it('should have a tabIndex that was set', async(() => {
+    component.tabIndex = 2;
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+      expect(input.nativeElement.tabIndex).toBe(2);
+    });
+  }));
+
+  it('should have an id that was set', async(() => {
+    component.id = 'test-checkbox';
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const inputByClass = fixture.debugElement.query(
+        By.css('.next-checkbox__input')
+      );
+      const inputById = fixture.debugElement.query(By.css('#test-checkbox'));
+      expect(inputByClass.nativeElement).toBe(inputById.nativeElement);
+    });
+  }));
+
+  it('should generate a unique id for the checkbox input if no id is set (id is underfined)', () => {
+    const inputByClass = fixture.debugElement.query(
+      By.css('.next-checkbox__input')
+    );
+    expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
+    expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
+  });
+
+  it('should generate a unique id for the checkbox input if no id is set (id is null)', async(() => {
+    component.id = null;
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const inputByClass = fixture.debugElement.query(
+        By.css('.next-checkbox__input')
+      );
+      expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
+      expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
+    });
+  }));
+
+  it('should be clicked when it\'s clicked', async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+      expect(input.nativeElement.checked).toBeTruthy(); // default state
+
+      input.nativeElement.click();
+      fixture.detectChanges();
+      expect(input.nativeElement.checked).toBeFalsy(); // state after click
+
+      input.nativeElement.click();
+      fixture.detectChanges();
+      expect(input.nativeElement.checked).toBeTruthy(); // state after double click
     });
   }));
 });
