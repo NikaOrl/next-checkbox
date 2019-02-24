@@ -1,4 +1,4 @@
-<form [formGroup]="appFormGroup">
+<form [formGroup]="appFormGroup" ngNativeValidate>
   <div class="container">
     <next-checkbox
       [disabled]="disabled"
@@ -9,9 +9,9 @@
     ></next-checkbox>
     <label for="checkbox-1">Some text</label>
   </div>
-  <input type="submit" />
+  <input type="submit" value="Submit" />
 </form>
-<form>
+<form ngNativeValidate>
   <div class="container">
     <next-checkbox
       [disabled]="disabled"
@@ -22,5 +22,5 @@
     ></next-checkbox>
     <label for="next-checkbox-2-input">Some text</label>
   </div>
-  <input type="submit" />
+  <input type="submit" value="Submit" />
 </form>

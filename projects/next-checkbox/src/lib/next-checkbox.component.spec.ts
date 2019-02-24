@@ -81,7 +81,7 @@ describe('NextCheckboxComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should use default controlValueAccessorChangeFn function be clicked when it\'s clicked', async(() => {
+  it('should use default controlValueAccessorChangeFn function be clicked if it\'s clicked', async(() => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -129,7 +129,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     expect(ngModel.touched).toBe(false);
   });
 
-  it('should be disabled when disabled=false', async(() => {
+  it('should be enabled when disabled=false', async(() => {
     component.disabled = false;
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -138,7 +138,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     });
   }));
 
-  it('should be enabled when disabled=true', async(() => {
+  it('should be disabled when disabled=true', async(() => {
     component.disabled = true;
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -206,7 +206,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     });
   }));
 
-  it('should be clicked when it\'s clicked', async(() => {
+  it('should be clicked if it\'s clicked', async(() => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -223,7 +223,7 @@ describe('NextCheckboxComponent with ngModel', () => {
   }));
 });
 
-describe('NextCheckboxComponent with ngModel', () => {
+describe('NextCheckboxComponent with Reactive Forms', () => {
   let checkboxDebugElement: DebugElement;
   let component: CheckboxWithReactiveFormsComponent;
   let fixture: ComponentFixture<CheckboxWithReactiveFormsComponent>;
@@ -231,7 +231,7 @@ describe('NextCheckboxComponent with ngModel', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule],
+      imports: [ReactiveFormsModule],
       declarations: [NextCheckboxComponent, CheckboxWithReactiveFormsComponent]
     }).compileComponents();
   }));
@@ -246,7 +246,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     checkboxInstance = checkboxDebugElement.componentInstance;
   });
 
-  it('should be disabled when disabled=false', async(() => {
+  it('should be enabled when disabled=false', async(() => {
     component.disabled = false;
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -255,7 +255,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     });
   }));
 
-  it('should be enabled when disabled=true', async(() => {
+  it('should be disabled when disabled=true', async(() => {
     component.disabled = true;
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -323,7 +323,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     });
   }));
 
-  it('should be clicked when it\'s clicked', async(() => {
+  it('should be clicked if it\'s clicked', async(() => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
