@@ -1,6 +1,6 @@
 ## The checkboxes with different tabIndex
 
-### *Try to push Tab for the ckeckboxes*
+### _Try to push Tab for the ckeckboxes_
 
 You can set different tabIndexes to the checkboxes
 
@@ -16,27 +16,23 @@ You can set different tabIndexes to the checkboxes
 </style>
 
 <div class="container">
-  <b>Species</b>
-  <p>
-    <next-checkbox
-      [disabled]="false"
-      [required]="false"
-      [tabIndex]="1"
-      [id]="'checkbox-1'"
-    >
-    </next-checkbox>
-    <span>The first one</span>
-  </p>
-  <p>
-    <next-checkbox
-      [disabled]="false"
-      [required]="false"
-      [tabIndex]="4"
-      [id]="'checkbox-2'"
-    >
-    </next-checkbox>
-    <span>The fourth one</span>
-  </p>
-  ...
+  <form>
+    <div class="title">
+      <b>Form title</b>
+    </div>
+    <div>
+      <next-checkbox
+        [disabled]="false"
+        [required]="false"
+        [tabIndex]="1"
+        [id]="'checkbox-1'"
+        name="checkbox1"
+        [(ngModel)]="isChecked"
+      >
+      </next-checkbox>
+      <label for="checkbox-1">The first one</label>
+    </div>
+    ...
+  </form>
 </div>
 ```

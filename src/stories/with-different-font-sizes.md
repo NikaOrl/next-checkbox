@@ -21,17 +21,23 @@ You can set different sizes to the checkbox in different places
 </style>
 
 <div class="container">
-  <b>Species</b>
-  <div class="label label-14">
-    <next-checkbox
-      [disabled]="false"
-      [required]="false"
-      [tabIndex]="1"
-      [id]="'checkbox-1'"
-    >
-    </next-checkbox>
-    <span>14px</span>
-  </div>
-  ...
+  <form>
+    <div class="title">
+      <b>Form title</b>
+    </div>
+    <div class="label label-14">
+      <next-checkbox
+        [disabled]="false"
+        [required]="false"
+        [tabIndex]="1"
+        [id]="'checkbox-1'"
+        name="checkbox14"
+        [(ngModel)]="isChecked"
+      >
+      </next-checkbox>
+      <label for="checkbox-1">14px</label>
+    </div>
+    ...
+  </form>
 </div>
 ```

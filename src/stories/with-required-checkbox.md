@@ -4,7 +4,7 @@ You can make the checkbox required
 
 ![alt text](https://pp.userapi.com/c845421/v845421569/1afa27/Luqby1D9duU.jpg)
 
-*You can use browser validation (it doesn't work in the Storybook)*
+_You can use browser validation (it doesn't work in the Storybook)_
 
 ### The template for this example looks like the code below
 
@@ -23,30 +23,37 @@ You can make the checkbox required
   }
 </style>
 <div class="container">
-  <div class="title">title</div>
   <form>
+    <div class="title">
+      <b>Form title</b>
+    </div>
     <div>
       <next-checkbox
         [disabled]="disabled"
         [required]="true"
         [tabIndex]="tabIndex"
         [id]="'checkbox-1'"
+        name="checkbox1"
+        [(ngModel)]="isFirstChecked"
       >
       </next-checkbox>
-      <span>Dog (426)</span>
+      <label for="checkbox-1">This checkbox is required</label>
     </div>
-    <p class="error">This checkbox is required</p>
+    <div class="error">This checkbox is required</div>
     <div>
       <next-checkbox
         [disabled]="disabled"
         [required]="false"
         [tabIndex]="tabIndex"
+        [id]="'checkbox-2'"
+        name="checkbox2"
+        [(ngModel)]="isSecondChecked"
       >
       </next-checkbox>
-      <span>Cynomolgus (24)</span>
+      <label for="checkbox-2">This checkbox is not required</label>
     </div>
     <input type="submit" class="btn">
-    <p class="success">This form is valid</p>
+    <div class="success">This form is valid</div>
   </form>
 </div>
 ```

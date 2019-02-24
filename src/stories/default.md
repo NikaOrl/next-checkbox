@@ -4,17 +4,20 @@
 npm i next-checkbox
 ```
 
-## Basic usage example
+## Basic usage example with NgModel
 
 ### Add module into your app
 
 ```
 import { NextCheckboxModule } from 'next-checkbox';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [AppComponent],
-  imports: [..., NextCheckboxModule],
+  imports: [
+    ..., NextCheckboxModule, FormsModule
+  ],
   providers: []
 })
 export class AppModule {
@@ -22,16 +25,80 @@ export class AppModule {
 
 ```
 
+### Add code to the component file
+
+```
+@Component({
+  export class AppComponent {
+    ...
+    isChecked = true;
+  }
+  ...
+```
+
 ### Add markup to the template file
 
 ```
-<next-checkbox
-  [disabled]="disabled"
-  [required]="required"
-  [tabIndex]="tabIndex"
-  [id]="id"
->
-</next-checkbox>
+<form>
+  <next-checkbox
+    [disabled]="disabled"
+    [required]="required"
+    [tabIndex]="tabIndex"
+    [id]="id"
+    name="checkbox"
+    [(ngModel)]="isChecked"
+  ></next-checkbox>
+  <label for="{{id}}">Some text</label>
+</form>
+```
+
+## Basic usage example with Reactive Forms
+
+### Add module into your app
+
+```
+import { NextCheckboxModule } from 'next-checkbox';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [..., NextCheckboxModule, ReactiveFormsModule],
+  providers: []
+})
+export class AppModule {
+}
+
+```
+
+### Add code to the component file
+
+```
+import { FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+  export class AppComponent {
+    ...
+    appFormGroup = new FormGroup({
+      checkboxFormControl: new FormControl({ checked: true })
+    });
+  }
+  ...
+```
+
+### Add markup to the template file
+
+```
+<form [formGroup]="appFormGroup">
+  <next-checkbox
+    [disabled]="disabled"
+    [required]="required"
+    [tabIndex]="tabIndex"
+    [id]="id"
+    formControlName="checkboxFormControl"
+  ></next-checkbox>
+  <label for="{{id}}">Some text</label>
+</form>
 ```
 
 ## The checkbox has:
@@ -55,18 +122,21 @@ export class AppModule {
     padding: 50px;
   }
   </style>
+
   <div class="container">
-    <b>Title</b>
-    <p>
+    <form>
+      <div class="title">
+        <b>Form title</b>
+      </div>
       <next-checkbox
         [disabled]="false"
         [required]="false"
-        [tabIndex]="1"
+        [tabIndex]="2"
         [id]="'checkbox-1'"
-      >
-      </next-checkbox>
-      <span>Some label here</span>
-    </p>
+        name="checkbox"
+        [(ngModel)]="isChecked"
+      ></next-checkbox>
+      <label for="checkbox-1">Some text</label>
+    </form>
   </div>
-
 ```
