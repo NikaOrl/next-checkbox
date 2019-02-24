@@ -2,10 +2,6 @@
 
 You can make the checkbox required
 
-![alt text](https://pp.userapi.com/c845421/v845421569/1afa27/Luqby1D9duU.jpg)
-
-_You can use browser validation (it doesn't work in the Storybook)_
-
 ### The template for this example looks like the code below
 
 ```
@@ -15,15 +11,16 @@ _You can use browser validation (it doesn't work in the Storybook)_
     font-family: sans-serif;
     padding: 50px;
   }
-  :invalid .error {
-    color: red;
+  .success {
+    color: #0460a9;
+    visibility: hidden;
   }
   :valid .success {
-    color: #0460a9;
+    visibility: visible;
   }
 </style>
 <div class="container">
-  <form>
+  <form ngNativeValidate>
     <div class="title">
       <b>Form title</b>
     </div>
@@ -39,7 +36,6 @@ _You can use browser validation (it doesn't work in the Storybook)_
       </next-checkbox>
       <label for="checkbox-1">This checkbox is required</label>
     </div>
-    <div class="error">This checkbox is required</div>
     <div>
       <next-checkbox
         [disabled]="disabled"

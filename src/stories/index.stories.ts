@@ -28,16 +28,6 @@ const styles = `
   .label-42 \{
     font-size: 42px;
   \}
-  .error \{
-    font-size: 40%;
-    color: red;
-    visibility: hidden;
-    margin:0;
-    margin-bottom: 15px;
-  \}
-  :invalid .error \{
-    visibility: visible;
-  \}
   .success \{
     font-size: 40%;
     color: #0460a9;
@@ -318,7 +308,7 @@ storiesOf('next-checkbox', module)
       template: `
         ${styles}
         <div class="container">
-          <form>
+          <form ngNativeValidate>
             <div class="title">
               <b>Form title</b>
             </div>
@@ -334,7 +324,6 @@ storiesOf('next-checkbox', module)
               </next-checkbox>
               <label for="checkbox-1">This checkbox is required</label>
             </div>
-            <div class="error">This checkbox is required</div>
             <div>
               <next-checkbox
                 [disabled]="disabled"
