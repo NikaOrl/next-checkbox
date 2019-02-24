@@ -28,10 +28,9 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() tabIndex: number;
 
   private _uniqueId = this.idGenerator();
-  @Input() id: string = this._uniqueId;
+  @Input() id: string;
 
   get inputId(): string {
-    /* the only way to create inputId in case of id=null or id=underfined */
     if (!this.id) {
       this.id = this._uniqueId;
     }

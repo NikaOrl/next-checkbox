@@ -7,8 +7,7 @@ import {
   FormsModule,
   NgModel,
   ReactiveFormsModule,
-  FormGroup,
-  Validators
+  FormGroup
 } from '@angular/forms';
 
 @Component({
