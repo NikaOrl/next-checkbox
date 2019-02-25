@@ -28,24 +28,16 @@ const styles = `
   .label-42 \{
     font-size: 42px;
   \}
-  .error \{
-    font-size: 40%;
-    color: #00000000;
-    margin:0;
-    margin-bottom: 15px;
-  \}
-  :invalid .error \{
-    color: red;
-  \}
   .success \{
     font-size: 40%;
-    color: #00000000;
+    color: #0460a9;
+    visibility: hidden;
     margin:0;
     text-align: center;
     margin: 8px auto;
   \}
   :valid .success \{
-    color: #0460a9;
+    visibility: visible;
   \}
   .btn \{
     background-color: #0460a9;
@@ -65,6 +57,29 @@ const styles = `
   </style>
 `;
 
+export const checkboxForDefaultText = {
+  isChecked: true
+};
+
+export const checkboxWithDifferentProperties = {
+  isFirstChecked: true,
+  isSecondChecked: false,
+  isThirdChecked: true
+};
+
+export const checkboxWithDifferentTabIndexes = {
+  isFirstChecked: false,
+  isSecondChecked: false,
+  isThirdChecked: false,
+  isForthChecked: false,
+  isFifthChecked: false
+};
+
+export const checkboxWithRequiredProperties = {
+  isFirstChecked: false,
+  isSecondChecked: false
+};
+
 storiesOf('next-checkbox', module)
   .addDecorator(withKnobs)
   .add(
@@ -74,23 +89,25 @@ storiesOf('next-checkbox', module)
         declarations: [NextCheckboxComponent]
       },
       template: `
-      ${styles}
-      <div class="container">
-        <div class="title">
-          <b>Species</b>
+        ${styles}
+        <div class="container">
+          <form>
+            <div class="title">
+              <b>Form title</b>
+            </div>
+            <next-checkbox
+              [disabled]="false"
+              [required]="false"
+              [tabIndex]="2"
+              [id]="'checkbox-1'"
+              name="checkbox"
+              [(ngModel)]="checkboxForDefaultText.isChecked"
+            ></next-checkbox>
+            <label for="checkbox-1">Some text</label>
+          </form>
         </div>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="false"
-            [tabIndex]="1"
-            [id]="'checkbox-1'"
-          >
-          </next-checkbox>
-          <span>Cynomolgus (24)</span>
-        </p>
-      </div>
-    `
+      `,
+      props: { checkboxForDefaultText }
     }))
   )
   .add(
@@ -100,40 +117,52 @@ storiesOf('next-checkbox', module)
         declarations: [NextCheckboxComponent]
       },
       template: `
-      ${styles}
-      <div class="container">
-        <div class="title">
-          <b>Species</b>
+        ${styles}
+        <div class="container">
+          <form>
+            <div class="title">
+              <b>Form title</b>
+            </div>
+            <div class="label label-14">
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="1"
+                [id]="'checkbox-1'"
+                name="checkbox14"
+                [(ngModel)]="checkboxWithDifferentProperties.isFirstChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-1">14px</label>
+            </div>
+            <div class="label label-28">
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="2"
+                [id]="'checkbox-2'"
+                name="checkbox28"
+                [(ngModel)]="checkboxWithDifferentProperties.isSecondChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-2">28px</label>
+            </div>
+            <div class="label label-42">
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="3"
+                [id]="'checkbox-3'"
+                name="checkbox42"
+                [(ngModel)]="checkboxWithDifferentProperties.isThirdChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-3">42px</label>
+            </div>
+          </form>
         </div>
-        <div class="label label-14">
-          <next-checkbox
-            [disabled]="false"
-            [required]="false"
-            [tabIndex]="1"
-          >
-          </next-checkbox>
-          <span>14px</span>
-        </div>
-        <div class="label label-28">
-          <next-checkbox
-            [disabled]="false"
-            [required]="true"
-            [tabIndex]="2"
-          >
-          </next-checkbox>
-          <span>28px</span>
-        </div>
-        <div class="label label-42">
-          <next-checkbox
-            [disabled]="false"
-            [required]="true"
-            [tabIndex]="2"
-          >
-          </next-checkbox>
-          <span>42px</span>
-        </div>
-      </div>
-    `
+      `,
+      props: { checkboxWithDifferentProperties }
     }))
   )
   .add(
@@ -143,31 +172,52 @@ storiesOf('next-checkbox', module)
         declarations: [NextCheckboxComponent]
       },
       template: `
-      ${styles}
-      <div class="container">
-        <div class="title">
-          <b>Species</b>
+        ${styles}
+        <div class="container">
+          <form>
+            <div class="title">
+              <b>Form title</b>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="1"
+                [id]="'checkbox-1'"
+                name="checkbox1"
+                [(ngModel)]="checkboxWithDifferentProperties.isFirstChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-1">This one is not disabled</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="true"
+                [required]="false"
+                [tabIndex]="2"
+                [id]="'checkbox-2'"
+                name="checkbox2"
+                [(ngModel)]="checkboxWithDifferentProperties.isSecondChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-2">This one is disabled</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="true"
+                [required]="false"
+                [tabIndex]="3"
+                [id]="'checkbox-3'"
+                name="checkbox3"
+                [(ngModel)]="checkboxWithDifferentProperties.isThirdChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-3">This one is disabled and checked</label>
+            </div>
+          </form>
         </div>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="false"
-            [tabIndex]="1"
-          >
-          </next-checkbox>
-          <span>This one is not disabled</span>
-        </p>
-        <p>
-          <next-checkbox
-            [disabled]="true"
-            [required]="true"
-            [tabIndex]="2"
-          >
-          </next-checkbox>
-          <span>This one is disabled</span>
-        </p>
-      </div>
-    `
+      `,
+      props: { checkboxWithDifferentProperties }
     }))
   )
   .add(
@@ -177,58 +227,76 @@ storiesOf('next-checkbox', module)
         declarations: [NextCheckboxComponent]
       },
       template: `
-      ${styles}
-      <div class="container">
-        <div class="title">
-          <b>Species</b>
+        ${styles}
+        <div class="container">
+          <form>
+            <div class="title">
+              <b>Form title</b>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="1"
+                [id]="'checkbox-1'"
+                name="checkbox1"
+                [(ngModel)]="checkboxWithDifferentTabIndexes.isFirstChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-1">The first one</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="4"
+                [id]="'checkbox-2'"
+                name="checkbox2"
+                [(ngModel)]="checkboxWithDifferentTabIndexes.isSecondChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-2">The fourth one</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="2"
+                [id]="'checkbox-3'"
+                name="checkbox3"
+                [(ngModel)]="checkboxWithDifferentTabIndexes.isThirdChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-3">The second one</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="3"
+                [id]="'checkbox-4'"
+                name="checkbox4"
+                [(ngModel)]="checkboxWithDifferentTabIndexes.isFourthChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-4">The third one</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="5"
+                [id]="'checkbox-5'"
+                name="checkbox5"
+                [(ngModel)]="checkboxWithDifferentTabIndexes.isFifthChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-5">The fifth one</label>
+            </div>
+          </form>
         </div>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="false"
-            [tabIndex]="1"
-          >
-          </next-checkbox>
-          <span>The first one</span>
-        </p>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="false"
-            [tabIndex]="4"
-          >
-          </next-checkbox>
-          <span>The fourth one</span>
-        </p>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="true"
-            [tabIndex]="2"
-          >
-          </next-checkbox>
-          <span>The second one</span>
-        </p>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="true"
-            [tabIndex]="3"
-          >
-          </next-checkbox>
-          <span>The third one</span>
-        </p>
-        <p>
-          <next-checkbox
-            [disabled]="false"
-            [required]="true"
-            [tabIndex]="5"
-          >
-          </next-checkbox>
-          <span>The fifth one</span>
-        </p>
-      </div>
-    `
+      `,
+      props: { checkboxWithDifferentTabIndexes }
     }))
   )
   .add(
@@ -238,35 +306,41 @@ storiesOf('next-checkbox', module)
         declarations: [NextCheckboxComponent]
       },
       template: `
-      ${styles}
-      <div class="container">
-        <div class="title">
-          <b>Species</b>
+        ${styles}
+        <div class="container">
+          <form ngNativeValidate>
+            <div class="title">
+              <b>Form title</b>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="disabled"
+                [required]="true"
+                [tabIndex]="tabIndex"
+                [id]="'checkbox-1'"
+                name="checkbox1"
+                [(ngModel)]="checkboxWithRequiredProperties.isFirstChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-1">This checkbox is required</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="disabled"
+                [required]="false"
+                [tabIndex]="tabIndex"
+                [id]="'checkbox-2'"
+                name="checkbox2"
+                [(ngModel)]="checkboxWithRequiredProperties.isSecondChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-2">This checkbox is not required</label>
+            </div>
+            <input type="submit" class="btn" value="Submit">
+            <div class="success">This form is valid</div>
+          </form>
         </div>
-        <form>
-          <div>
-            <next-checkbox
-              [disabled]="disabled"
-              [required]="true"
-              [tabIndex]="tabIndex"
-            >
-            </next-checkbox>
-            <span>Dog (426)</span>
-          </div>
-          <p class="error">This checkbox is required</p>
-          <div>
-            <next-checkbox
-              [disabled]="disabled"
-              [required]="false"
-              [tabIndex]="tabIndex"
-            >
-            </next-checkbox>
-            <span>Cynomolgus (24)</span>
-          </div>
-          <input type="submit" class="btn">
-          <p class="success">This form is valid</p>
-        </form>
-      </div>
-    `
+      `,
+      props: { checkboxWithRequiredProperties }
     }))
   );
