@@ -1,11 +1,13 @@
 <label class="next-checkbox">
-  <input type="checkbox"
-         class="next-checkbox__input"
-         [checked]="checked"
-         [disabled]="disabled"
-         [id]="inputId"
-         [required]="required"
-         [tabIndex]="tabIndex"
-         (change)="onChange()">
+  <input
+    type="checkbox"
+    class="next-checkbox__input"
+    [checked]="checked"
+    [disabled]="disabled"
+    [id]="inputId"
+    [required]="required"
+    [tabIndex]="tabIndex"
+    (change)="onChange()"
+  />
   <i class="next-checkbox__icon"></i>
 </label>

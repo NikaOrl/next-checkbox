@@ -1,31 +1,26 @@
-<div class="container">
-  <form>
-  <p>
+<form [formGroup]="appFormGroup" ngNativeValidate>
+  <div class="container">
     <next-checkbox
       [disabled]="disabled"
-      [required]="true"
+      [required]="required"
       [tabIndex]="tabIndex"
-    >
-    </next-checkbox>
-  </p>
-  <p>
-    <next-checkbox
-      [disabled]="disabled"
-      [required]="true"
-      [tabIndex]="tabIndex"
-    >
-    </next-checkbox>
-    <span>This second</span>
-  </p>
-  <p>
-    <next-checkbox
-      [disabled]="disabled"
-      [required]="true"
-      [tabIndex]="tabIndex"
-      [id]="'the-third'"
-    >
-    </next-checkbox>
-    <span> This third </span>
-  </p>
+      [id]="'checkbox-1'"
+      formControlName="checkboxFormControl"
+    ></next-checkbox>
+    <label for="checkbox-1">Some text</label>
+  </div>
+  <input type="submit" value="Submit" />
 </form>
-</div>
+<form ngNativeValidate>
+  <div class="container">
+    <next-checkbox
+      [disabled]="disabled"
+      [required]="required"
+      [tabIndex]="tabIndex"
+      [(ngModel)]="isChecked"
+      name="checkbox"
+    ></next-checkbox>
+    <label for="next-checkbox-2-input">Some text</label>
+  </div>
+  <input type="submit" value="Submit" />
+</form>

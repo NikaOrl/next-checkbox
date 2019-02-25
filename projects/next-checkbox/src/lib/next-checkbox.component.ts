@@ -26,9 +26,14 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() tabIndex: number;
-  @Input() id = this.idGenerator();
+
+  private _uniqueId = this.idGenerator();
+  @Input() id: string;
 
   get inputId(): string {
+    if (!this.id) {
+      this.id = this._uniqueId;
+    }
     return this.id;
   }
 
