@@ -61,7 +61,7 @@ $gray-medium: #c6c6c6;
   &__icon:after {
     -ms-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
-    border: solid #fff;
+    border: solid $white;
     border-radius: 3px;
     border-width: 0 0.12em 0.12em 0;
     height: 0.4em;

@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NextCheckboxComponent } from './next-checkbox.component';
-import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {NextCheckboxComponent} from './next-checkbox.component';
+import {By} from '@angular/platform-browser';
+import {Component, DebugElement} from '@angular/core';
 import {
   FormControl,
   FormsModule,
   NgModel,
   ReactiveFormsModule,
-  FormGroup
+  FormGroup,
 } from '@angular/forms';
 
 @Component({
@@ -25,7 +25,7 @@ import {
         <label for="checkbox-1">Some text</label>
       </div>
     </form>
-  `
+  `,
 })
 class CheckboxWithNgModelComponent {
   disabled: boolean;
@@ -40,7 +40,6 @@ class CheckboxWithNgModelComponent {
     <form [formGroup]="appFormGroup" class="reactive-form">
       <div class="container">
         <next-checkbox
-          [disabled]="disabled"
           [required]="required"
           [tabIndex]="tabIndex"
           [id]="id"
@@ -49,7 +48,7 @@ class CheckboxWithNgModelComponent {
         <label for="checkbox-1">Some text</label>
       </div>
     </form>
-  `
+  `,
 })
 class CheckboxWithReactiveFormsComponent {
   disabled: boolean;
@@ -57,7 +56,10 @@ class CheckboxWithReactiveFormsComponent {
   tabIndex: number;
   id: string;
   appFormGroup = new FormGroup({
-    checkboxFormControl: new FormControl(true)
+    checkboxFormControl: new FormControl({
+      value: true,
+      disabled: this.disabled,
+    }),
   });
 }
 
@@ -67,7 +69,7 @@ describe('NextCheckboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NextCheckboxComponent]
+      declarations: [NextCheckboxComponent],
     }).compileComponents();
   }));
 
@@ -108,7 +110,7 @@ describe('NextCheckboxComponent with ngModel', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [NextCheckboxComponent, CheckboxWithNgModelComponent]
+      declarations: [NextCheckboxComponent, CheckboxWithNgModelComponent],
     }).compileComponents();
   }));
 
@@ -117,7 +119,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     fixture.detectChanges();
     component = fixture.componentInstance;
     checkboxDebugElement = fixture.debugElement.query(
-      By.directive(NextCheckboxComponent)
+      By.directive(NextCheckboxComponent),
     );
     checkboxInstance = checkboxDebugElement.componentInstance;
     ngModel = checkboxDebugElement.injector.get<NgModel>(NgModel);
@@ -180,7 +182,7 @@ describe('NextCheckboxComponent with ngModel', () => {
       fixture.detectChanges();
 
       const inputByClass = fixture.debugElement.query(
-        By.css('.next-checkbox__input')
+        By.css('.next-checkbox__input'),
       );
       const inputById = fixture.debugElement.query(By.css('#test-checkbox'));
       expect(inputByClass.nativeElement.id).toBe('test-checkbox');
@@ -199,7 +201,7 @@ describe('NextCheckboxComponent with ngModel', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const inputByClass = fixture.debugElement.query(
-        By.css('.next-checkbox__input')
+        By.css('.next-checkbox__input'),
       );
       expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
       expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
@@ -232,7 +234,7 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [NextCheckboxComponent, CheckboxWithReactiveFormsComponent]
+      declarations: [NextCheckboxComponent, CheckboxWithReactiveFormsComponent],
     }).compileComponents();
   }));
 
@@ -241,13 +243,13 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
     fixture.detectChanges();
     component = fixture.componentInstance;
     checkboxDebugElement = fixture.debugElement.query(
-      By.directive(NextCheckboxComponent)
+      By.directive(NextCheckboxComponent),
     );
     checkboxInstance = checkboxDebugElement.componentInstance;
   });
 
   it('should be enabled when disabled=false', async(() => {
-    component.disabled = false;
+    component.appFormGroup.controls['checkboxFormControl'].enable();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -256,7 +258,7 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
   }));
 
   it('should be disabled when disabled=true', async(() => {
-    component.disabled = true;
+    component.appFormGroup.controls['checkboxFormControl'].disable();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const de = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -296,7 +298,7 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const inputByClass = fixture.debugElement.query(
-        By.css('.next-checkbox__input')
+        By.css('.next-checkbox__input'),
       );
       const inputById = fixture.debugElement.query(By.css('#test-checkbox'));
       expect(inputByClass.nativeElement).toBe(inputById.nativeElement);
@@ -305,7 +307,7 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
 
   it('should generate a unique id for the checkbox input if no id is set (id is underfined)', () => {
     const inputByClass = fixture.debugElement.query(
-      By.css('.next-checkbox__input')
+      By.css('.next-checkbox__input'),
     );
     expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
     expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
@@ -316,7 +318,7 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const inputByClass = fixture.debugElement.query(
-        By.css('.next-checkbox__input')
+        By.css('.next-checkbox__input'),
       );
       expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
       expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);

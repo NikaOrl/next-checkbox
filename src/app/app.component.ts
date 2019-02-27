@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'next-checkbox-app';
@@ -13,6 +12,9 @@ export class AppComponent {
   tabIndex = 1;
   isChecked = true;
   appFormGroup = new FormGroup({
-    checkboxFormControl: new FormControl({ checked: true })
+    checkboxFormControl: new FormControl({
+      value: true,
+      disabled: this.disabled,
+    }),
   });
 }
