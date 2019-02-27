@@ -3,9 +3,12 @@ import {
   Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  forwardRef
+  forwardRef,
+  AfterViewInit,
+  Renderer2,
+  ElementRef,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 let nextUniqueId = 0;
 
@@ -18,22 +21,18 @@ let nextUniqueId = 0;
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NextCheckboxComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class NextCheckboxComponent implements ControlValueAccessor {
+export class NextCheckboxComponent
+  implements ControlValueAccessor, AfterViewInit {
   @Input() disabled: boolean;
   @Input() required: boolean;
   @Input() tabIndex: number;
-
-  private _uniqueId = this.idGenerator();
-  @Input() id: string;
+  @Input() id = `next-checkbox-${++nextUniqueId}-input`;
 
   get inputId(): string {
-    if (!this.id) {
-      this.id = this._uniqueId;
-    }
     return this.id;
   }
 
@@ -46,20 +45,21 @@ export class NextCheckboxComponent implements ControlValueAccessor {
   set checked(checked: any) {
     if (checked !== this.checked) {
       this._checked = checked;
-      this._changeDetectorRef.markForCheck();
+      this.changeDetectorRef.markForCheck();
     }
   }
 
-  private _changeDetectorRef: ChangeDetectorRef;
   protected onTouched: (value: any) => void;
-
-  constructor(changeDetectorRef: ChangeDetectorRef) {
-    this._changeDetectorRef = changeDetectorRef;
-  }
-
   protected controlValueAccessorChangeFn: (value: any) => void = () => null;
-  protected idGenerator(): string {
-    return `next-checkbox-${++nextUniqueId}-input`;
+
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private render: Renderer2,
+    private el: ElementRef,
+  ) {}
+
+  ngAfterViewInit() {
+    this.render.removeAttribute(this.el.nativeElement, 'id');
   }
 
   onChange(): void {
@@ -81,6 +81,6 @@ export class NextCheckboxComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-    this._changeDetectorRef.markForCheck();
+    this.changeDetectorRef.markForCheck();
   }
 }
