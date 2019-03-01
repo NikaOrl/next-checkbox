@@ -31,6 +31,29 @@ class CheckboxWithNgModelComponent {
 
 @Component({
   template: `
+    <form class="ng-model-form">
+      <div class="container">
+        <next-checkbox
+          [disabled]="disabled"
+          [required]="required"
+          [tabIndex]="tabIndex"
+          [(ngModel)]="isChecked"
+          name="checkbox"
+        ></next-checkbox>
+        <label for="checkbox-1">Some text</label>
+      </div>
+    </form>
+  `,
+})
+class CheckboxWithNgModelWithoutIdComponent {
+  public disabled: boolean;
+  public required: boolean;
+  public tabIndex: number;
+  public isChecked = true;
+}
+
+@Component({
+  template: `
     <form [formGroup]="appFormGroup" class="reactive-form">
       <div class="container">
         <next-checkbox
@@ -49,6 +72,32 @@ class CheckboxWithReactiveFormsComponent {
   public required: boolean;
   public tabIndex: number;
   public id: string;
+  public appFormGroup = new FormGroup({
+    checkboxFormControl: new FormControl({
+      value: true,
+      disabled: this.disabled,
+    }),
+  });
+}
+
+@Component({
+  template: `
+    <form [formGroup]="appFormGroup" class="reactive-form">
+      <div class="container">
+        <next-checkbox
+          [required]="required"
+          [tabIndex]="tabIndex"
+          formControlName="checkboxFormControl"
+        ></next-checkbox>
+        <label for="checkbox-1">Some text</label>
+      </div>
+    </form>
+  `,
+})
+class CheckboxWithReactiveFormsWithoutIdComponent {
+  public disabled: boolean;
+  public required: boolean;
+  public tabIndex: number;
   public appFormGroup = new FormGroup({
     checkboxFormControl: new FormControl({
       value: true,
@@ -77,7 +126,7 @@ describe('NextCheckboxComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should use default controlValueAccessorChangeFn function be clicked if it\'s clicked', async(() => {
+  it('should use default controlValueAccessorChangeFn function and be clicked if it\'s clicked', async(() => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
@@ -100,19 +149,22 @@ describe('NextCheckboxComponent with ngModel', () => {
   let component: CheckboxWithNgModelComponent;
   let checkboxInstance: NextCheckboxComponent;
   let fixture: ComponentFixture<CheckboxWithNgModelComponent>;
+  let fixtureWithoutId: ComponentFixture<CheckboxWithNgModelWithoutIdComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [NextCheckboxComponent, CheckboxWithNgModelComponent],
+      declarations: [NextCheckboxComponent, CheckboxWithNgModelComponent, CheckboxWithNgModelWithoutIdComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckboxWithNgModelComponent);
     fixture.detectChanges();
+    fixtureWithoutId = TestBed.createComponent(CheckboxWithNgModelWithoutIdComponent);
+    fixtureWithoutId.detectChanges();
     component = fixture.componentInstance;
-    checkboxDebugElement = fixture.debugElement.query(By.directive(NextCheckboxComponent));
+    checkboxDebugElement = fixtureWithoutId.debugElement.query(By.directive(NextCheckboxComponent));
     checkboxInstance = checkboxDebugElement.componentInstance;
     ngModel = checkboxDebugElement.injector.get<NgModel>(NgModel);
   });
@@ -180,21 +232,11 @@ describe('NextCheckboxComponent with ngModel', () => {
     });
   }));
 
-  it('should generate a unique id for the checkbox input if no id is set (id is underfined)', () => {
-    const input = fixture.debugElement.query(By.css('.next-checkbox__input'));
+  it('should generate a unique id for the checkbox input if no id is set', () => {
+    const input = fixtureWithoutId.debugElement.query(By.css('.next-checkbox__input'));
     expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
     expect(input.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
   });
-
-  it('should generate a unique id for the checkbox input if no id is set (id is null)', async(() => {
-    component.id = null;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      const inputByClass = fixture.debugElement.query(By.css('.next-checkbox__input'));
-      expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
-      expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
-    });
-  }));
 
   it('should be clicked if it\'s clicked', async(() => {
     fixture.whenStable().then(() => {
@@ -217,20 +259,27 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
   let checkboxDebugElement: DebugElement;
   let component: CheckboxWithReactiveFormsComponent;
   let fixture: ComponentFixture<CheckboxWithReactiveFormsComponent>;
+  let fixtureWithoutId: ComponentFixture<CheckboxWithReactiveFormsWithoutIdComponent>;
   let checkboxInstance: NextCheckboxComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [NextCheckboxComponent, CheckboxWithReactiveFormsComponent],
+      declarations: [
+        NextCheckboxComponent,
+        CheckboxWithReactiveFormsComponent,
+        CheckboxWithReactiveFormsWithoutIdComponent,
+      ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckboxWithReactiveFormsComponent);
     fixture.detectChanges();
+    fixtureWithoutId = TestBed.createComponent(CheckboxWithReactiveFormsWithoutIdComponent);
+    fixtureWithoutId.detectChanges();
     component = fixture.componentInstance;
-    checkboxDebugElement = fixture.debugElement.query(By.directive(NextCheckboxComponent));
+    checkboxDebugElement = fixtureWithoutId.debugElement.query(By.directive(NextCheckboxComponent));
     checkboxInstance = checkboxDebugElement.componentInstance;
   });
 
@@ -289,21 +338,11 @@ describe('NextCheckboxComponent with Reactive Forms', () => {
     });
   }));
 
-  it('should generate a unique id for the checkbox input if no id is set (id is underfined)', () => {
-    const inputByClass = fixture.debugElement.query(By.css('.next-checkbox__input'));
+  it('should generate a unique id for the checkbox input if no id is set', () => {
+    const inputByClass = fixtureWithoutId.debugElement.query(By.css('.next-checkbox__input'));
     expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
     expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
   });
-
-  it('should generate a unique id for the checkbox input if no id is set (id is null)', async(() => {
-    component.id = null;
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      const inputByClass = fixture.debugElement.query(By.css('.next-checkbox__input'));
-      expect(checkboxInstance.inputId).toMatch(/next-checkbox-\d+-input/);
-      expect(inputByClass.nativeElement.id).toMatch(/next-checkbox-\d+-input/);
-    });
-  }));
 
   it('should be clicked if it\'s clicked', async(() => {
     fixture.whenStable().then(() => {
