@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/angular';
-import { NextCheckboxComponent } from 'next-checkbox';
+import { NextCheckboxComponent } from '../../projects/next-checkbox/src/public_api';
 import { withNotes } from '@storybook/addon-notes';
 import { withKnobs } from '@storybook/addon-knobs';
 import * as marked from 'marked';
@@ -63,6 +63,7 @@ export const checkboxForDefaultText = {
 
 export const checkboxWithDifferentProperties = {
   isFirstChecked: true,
+  isFirstUnChecked: false,
   isSecondChecked: false,
   isThirdChecked: true
 };
@@ -189,6 +190,18 @@ storiesOf('next-checkbox', module)
               >
               </next-checkbox>
               <label for="checkbox-1">This one is not disabled</label>
+            </div>
+            <div>
+              <next-checkbox
+                [disabled]="false"
+                [required]="false"
+                [tabIndex]="1"
+                id="checkbox-21"
+                name="checkbox21"
+                [(ngModel)]="checkboxWithDifferentProperties.isFirstUnChecked"
+              >
+              </next-checkbox>
+              <label for="checkbox-21">This one is not disabled</label>
             </div>
             <div>
               <next-checkbox

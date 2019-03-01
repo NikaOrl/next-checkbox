@@ -3,71 +3,65 @@ $blue: #0460a9;
 $placeholder-gray: #888;
 $gray-medium: #c6c6c6;
 
+:host {
+  position: relative;
+}
+
 .next-checkbox {
   cursor: pointer;
   margin-bottom: 0;
-  padding-left: 1.5em;
-  position: relative;
+  padding: 0 0 0 1.5em;
   user-select: none;
   white-space: nowrap;
 
   input {
     cursor: pointer;
     height: 1px;
-    left: 0.5em;
+    left: 1.25em;
     margin: 0;
     opacity: 0;
     position: absolute;
-    top: 0.5em;
+    bottom: 0;
     width: 1px;
   }
 
   &__icon {
-    background-color: $white;
-    border: 1px solid $placeholder-gray;
+    background-color: var(--next-checkbox-white, $white);
+    color: var(--next-checkbox-white, $white);
+    border: 2px solid var(--next-checkbox-blue, $blue);
     height: 1em;
     left: 0;
     position: absolute;
-    top: 0;
+    top: 50%;
     width: 1em;
-  }
-
-  input:checked ~ &__icon {
+    transform: translateY(-50%);  
+    box-sizing: border-box;
+    overflow: hidden;
     background-image: none;
+    transition: background-color linear .1s;
+
+    & svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   input:checked:enabled ~ &__icon {
-    background-color: $blue;
+    background-color: var(--next-checkbox-blue, $blue);
   }
 
   input:checked:disabled ~ &__icon {
-    background-color: $gray-medium;
+    background-color: var(--next-checkbox-gray-medium, $gray-medium);
+  }
+
+  input:disabled ~ &__icon {
+    border-color: var(--next-checkbox-placeholder-gray, $placeholder-gray)
   }
 
   input:focus ~ &__icon {
     outline: -webkit-focus-ring-color auto 5px;
-  }
-
-  &__icon:after {
-    content: '';
-    display: none;
-    position: absolute;
-  }
-
-  input:checked ~ &__icon:after {
-    display: block;
-  }
-
-  &__icon:after {
-    -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    border: solid #fff;
-    border-radius: 3px;
-    border-width: 0 0.12em 0.12em 0;
-    height: 0.4em;
-    left: 0.35em;
-    top: 0.15em;
-    transform: rotate(45deg);
-    width: 0.2em;
   }
 }
