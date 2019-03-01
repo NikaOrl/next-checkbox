@@ -26,6 +26,10 @@ let nextUniqueId = 0;
   ],
 })
 export class NextCheckboxComponent implements ControlValueAccessor, AfterViewInit {
+  @Input() public disabled: boolean;
+  @Input() public required: boolean;
+  @Input() public tabIndex: number;
+  @Input() public id = `next-checkbox-${++nextUniqueId}-input`;
 
   get inputId(): string {
     return this.id;
@@ -41,10 +45,6 @@ export class NextCheckboxComponent implements ControlValueAccessor, AfterViewIni
       this.changeDetectorRef.markForCheck();
     }
   }
-  @Input() public disabled: boolean;
-  @Input() public required: boolean;
-  @Input() public tabIndex: number;
-  @Input() public id = `next-checkbox-${++nextUniqueId}-input`;
 
   protected onTouched: (value: any) => void;
 
