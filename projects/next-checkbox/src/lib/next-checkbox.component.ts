@@ -25,18 +25,11 @@ let nextUniqueId = 0;
     },
   ],
 })
-export class NextCheckboxComponent
-  implements ControlValueAccessor, AfterViewInit {
-  @Input() disabled: boolean;
-  @Input() required: boolean;
-  @Input() tabIndex: number;
-  @Input() id = `next-checkbox-${++nextUniqueId}-input`;
+export class NextCheckboxComponent implements ControlValueAccessor, AfterViewInit {
 
   get inputId(): string {
     return this.id;
   }
-
-  private _checked = false;
 
   get checked(): any {
     return this._checked;
@@ -48,39 +41,41 @@ export class NextCheckboxComponent
       this.changeDetectorRef.markForCheck();
     }
   }
+  @Input() public disabled: boolean;
+  @Input() public required: boolean;
+  @Input() public tabIndex: number;
+  @Input() public id = `next-checkbox-${++nextUniqueId}-input`;
 
   protected onTouched: (value: any) => void;
-  protected controlValueAccessorChangeFn: (value: any) => void = () => null;
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private render: Renderer2,
-    private el: ElementRef,
-  ) {}
+  private _checked = false;
 
-  ngAfterViewInit() {
+  constructor(private changeDetectorRef: ChangeDetectorRef, private render: Renderer2, private el: ElementRef) {}
+
+  public ngAfterViewInit() {
     this.render.removeAttribute(this.el.nativeElement, 'id');
   }
 
-  onChange(): void {
+  public onChange(): void {
     this.checked = !this.checked;
     this.controlValueAccessorChangeFn(this.checked);
   }
 
-  writeValue(value: any): void {
+  public writeValue(value: any): void {
     this.checked = value;
   }
 
-  registerOnChange(fn: any): void {
+  public registerOnChange(fn: any): void {
     this.controlValueAccessorChangeFn = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  public setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
     this.changeDetectorRef.markForCheck();
   }
+  protected controlValueAccessorChangeFn: (value: any) => void = () => null;
 }

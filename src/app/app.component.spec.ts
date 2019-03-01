@@ -7,12 +7,7 @@ import {NextCheckboxModule} from 'next-checkbox';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NextCheckboxModule,
-      ],
+      imports: [RouterTestingModule, FormsModule, ReactiveFormsModule, NextCheckboxModule],
       declarations: [AppComponent],
     }).compileComponents();
   }));

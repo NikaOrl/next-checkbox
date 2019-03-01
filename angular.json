@@ -139,10 +139,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/next-checkbox/tsconfig.lib.json",
-              "projects/next-checkbox/tsconfig.spec.json"
-            ],
+            "tsConfig": ["projects/next-checkbox/tsconfig.lib.json", "projects/next-checkbox/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**"]
           }
         }

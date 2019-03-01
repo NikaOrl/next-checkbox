@@ -6,12 +6,12 @@ import {FormControl, FormGroup} from '@angular/forms';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'next-checkbox-app';
-  disabled = false;
-  required = false;
-  tabIndex = 1;
-  isChecked = true;
-  appFormGroup = new FormGroup({
+  public title = 'next-checkbox-app';
+  public disabled = false;
+  public required = false;
+  public tabIndex = 1;
+  public isChecked = true;
+  public appFormGroup = new FormGroup({
     checkboxFormControl: new FormControl({
       value: true,
       disabled: this.disabled,
