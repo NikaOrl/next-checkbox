@@ -34,11 +34,11 @@ $gray-medium: #c6c6c6;
     position: absolute;
     top: 50%;
     width: 1em;
-    transform: translateY(-50%);  
+    transform: translateY(-50%);
     box-sizing: border-box;
     overflow: hidden;
     background-image: none;
-    transition: background-color linear .1s;
+    transition: background-color linear 0.1s;
 
     & svg {
       position: absolute;
@@ -58,7 +58,7 @@ $gray-medium: #c6c6c6;
   }
 
   input:disabled ~ &__icon {
-    border-color: var(--next-checkbox-placeholder-gray, $placeholder-gray)
+    border-color: var(--next-checkbox-placeholder-gray, $placeholder-gray);
   }
 
   input:focus ~ &__icon {

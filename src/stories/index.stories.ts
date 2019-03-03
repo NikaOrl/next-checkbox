@@ -1,7 +1,7 @@
-import { storiesOf } from '@storybook/angular';
-import { NextCheckboxComponent } from '../../projects/next-checkbox/src/public_api';
-import { withNotes } from '@storybook/addon-notes';
-import { withKnobs } from '@storybook/addon-knobs';
+import {storiesOf} from '@storybook/angular';
+import {NextCheckboxComponent} from '../../projects/next-checkbox/src/public_api';
+import {withNotes} from '@storybook/addon-notes';
+import {withKnobs} from '@storybook/addon-knobs';
 import * as marked from 'marked';
 import defaultText from './default.md';
 import withDifferentFontSizes from './with-different-font-sizes.md';
@@ -58,14 +58,14 @@ const styles = `
 `;
 
 export const checkboxForDefaultText = {
-  isChecked: true
+  isChecked: true,
 };
 
 export const checkboxWithDifferentProperties = {
   isFirstChecked: true,
   isFirstUnChecked: false,
   isSecondChecked: false,
-  isThirdChecked: true
+  isThirdChecked: true,
 };
 
 export const checkboxWithDifferentTabIndexes = {
@@ -73,21 +73,21 @@ export const checkboxWithDifferentTabIndexes = {
   isSecondChecked: false,
   isThirdChecked: false,
   isForthChecked: false,
-  isFifthChecked: false
+  isFifthChecked: false,
 };
 
 export const checkboxWithRequiredProperties = {
   isFirstChecked: false,
-  isSecondChecked: false
+  isSecondChecked: false,
 };
 
 storiesOf('next-checkbox', module)
   .addDecorator(withKnobs)
   .add(
     'Install',
-    withNotes({ text: marked(defaultText) })(() => ({
+    withNotes({text: marked(defaultText)})(() => ({
       moduleMetadata: {
-        declarations: [NextCheckboxComponent]
+        declarations: [NextCheckboxComponent],
       },
       template: `
         ${styles}
@@ -108,14 +108,14 @@ storiesOf('next-checkbox', module)
           </form>
         </div>
       `,
-      props: { checkboxForDefaultText }
-    }))
+      props: {checkboxForDefaultText},
+    })),
   )
   .add(
     'With different font-sizes',
-    withNotes({ text: marked(withDifferentFontSizes) })(() => ({
+    withNotes({text: marked(withDifferentFontSizes)})(() => ({
       moduleMetadata: {
-        declarations: [NextCheckboxComponent]
+        declarations: [NextCheckboxComponent],
       },
       template: `
         ${styles}
@@ -163,14 +163,14 @@ storiesOf('next-checkbox', module)
           </form>
         </div>
       `,
-      props: { checkboxWithDifferentProperties }
-    }))
+      props: {checkboxWithDifferentProperties},
+    })),
   )
   .add(
     'With disabled checkbox',
-    withNotes({ text: marked(withDisabledCheckbox) })(() => ({
+    withNotes({text: marked(withDisabledCheckbox)})(() => ({
       moduleMetadata: {
-        declarations: [NextCheckboxComponent]
+        declarations: [NextCheckboxComponent],
       },
       template: `
         ${styles}
@@ -230,14 +230,14 @@ storiesOf('next-checkbox', module)
           </form>
         </div>
       `,
-      props: { checkboxWithDifferentProperties }
-    }))
+      props: {checkboxWithDifferentProperties},
+    })),
   )
   .add(
     'With different tabIndexes',
-    withNotes({ text: marked(withDifferentTabIndexes) })(() => ({
+    withNotes({text: marked(withDifferentTabIndexes)})(() => ({
       moduleMetadata: {
-        declarations: [NextCheckboxComponent]
+        declarations: [NextCheckboxComponent],
       },
       template: `
         ${styles}
@@ -309,14 +309,14 @@ storiesOf('next-checkbox', module)
           </form>
         </div>
       `,
-      props: { checkboxWithDifferentTabIndexes }
-    }))
+      props: {checkboxWithDifferentTabIndexes},
+    })),
   )
   .add(
     'With required checkbox',
-    withNotes({ text: marked(withRequiredCheckbox) })(() => ({
+    withNotes({text: marked(withRequiredCheckbox)})(() => ({
       moduleMetadata: {
-        declarations: [NextCheckboxComponent]
+        declarations: [NextCheckboxComponent],
       },
       template: `
         ${styles}
@@ -354,6 +354,6 @@ storiesOf('next-checkbox', module)
           </form>
         </div>
       `,
-      props: { checkboxWithRequiredProperties }
-    }))
+      props: {checkboxWithRequiredProperties},
+    })),
   );

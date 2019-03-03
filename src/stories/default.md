@@ -78,9 +78,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   export class AppComponent {
+    disabled = false;
     ...
     appFormGroup = new FormGroup({
-      checkboxFormControl: new FormControl({ checked: true })
+      checkboxFormControl: new FormControl({
+        value: true,
+        disabled: this.disabled
+      })
     });
   }
   ...
@@ -91,7 +95,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 ```
 <form [formGroup]="appFormGroup">
   <next-checkbox
-    [disabled]="disabled"
     [required]="required"
     [tabIndex]="tabIndex"
     [id]="id"
